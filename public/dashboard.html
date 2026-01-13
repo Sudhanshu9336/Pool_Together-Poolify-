@@ -10,9 +10,134 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js" defer></script>
-    <script src="../js/auth.js" defer></script>
+    <script src="../js/auth.js" defer></script> -->
+    <script>
+    // DIRECT FIREBASE CONFIG
+    const firebaseConfig = {
+        apiKey: "AIzaSyCAy95nwYF-LyIS_DmAwYcK1vTjV9YcX1w",
+        authDomain: "poolify-95b73.firebaseapp.com",
+        projectId: "poolify-95b73",
+        storageBucket: "poolify-95b73.firebasestorage.app",
+        messagingSenderId: "844374109699",
+        appId: "1:844374109699:web:0ef99fe2d365878432b902",
+        measurementId: "G-7L8Q8JDS4X"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+</script>
+
+<script>
+    // SIMPLE AUTH CHECK
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Dashboard loaded");
+        
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("User found:", user.email);
+                
+                // Update user info
+                document.getElementById('userName').textContent = user.email.split('@')[0];
+                document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
+                
+                // Show demo data
+                document.getElementById('activePoolsCount').textContent = "3";
+                document.getElementById('moneySaved').textContent = "150";
+                document.getElementById('itemsPooled').textContent = "8"; 
+                document.getElementById('timeSaved').textContent = "12";
+                
+                // Load demo pools
+                document.getElementById('poolsContainer').innerHTML = `
+                    <div class="pool-card">
+                        <div class="pool-card-header">
+                            <div class="pool-platform">
+                                <i class="fas fa-bolt"></i>
+                                <span>Blinkit</span>
+                            </div>
+                            <span class="pool-status active">Active</span>
+                        </div>
+                        <div class="pool-card-body">
+                            <h3>Snacks Delivery Pool</h3>
+                            <p class="pool-description">Ordering chips, cold drinks</p>
+                            <div class="pool-details">
+                                <div class="pool-detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>2/4 members</span>
+                                </div>
+                                <div class="pool-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Hostel A</span>
+                                </div>
+                                <div class="pool-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>1 hour left</span>
+                                </div>
+                            </div>
+                            <div class="pool-card-footer">
+                                <span class="pool-savings">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Save ₹30/person
+                                </span>
+                                <button onclick="joinPool('demo1')" class="btn-primary">
+                                    <i class="fas fa-sign-in-alt"></i> Join Pool
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-card">
+                        <div class="pool-card-header">
+                            <div class="pool-platform">
+                                <i class="fas fa-rocket"></i>
+                                <span>Zepto</span>
+                            </div>
+                            <span class="pool-status active">Active</span>
+                        </div>
+                        <div class="pool-card-body">
+                            <h3>Groceries Pool</h3>
+                            <p class="pool-description">Weekly groceries order</p>
+                            <div class="pool-details">
+                                <div class="pool-detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>3/5 members</span>
+                                </div>
+                                <div class="pool-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Hostel B</span>
+                                </div>
+                                <div class="pool-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>3 hours left</span>
+                                </div>
+                            </div>
+                            <div class="pool-card-footer">
+                                <span class="pool-savings">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Save ₹40/person
+                                </span>
+                                <button onclick="joinPool('demo2')" class="btn-primary">
+                                    <i class="fas fa-sign-in-alt"></i> Join Pool
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+            } else {
+                // No user, redirect to login
+                window.location.href = 'index.html';
+            }
+        });
+    });
+    
+    function joinPool(poolId) {
+        alert('Joining pool: ' + poolId);
+    }
+</script>
     <script src="../js/dashboard.js" defer></script>
     
     <!-- Invite Modal & Chat CSS -->
