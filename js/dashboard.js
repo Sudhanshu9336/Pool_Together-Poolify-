@@ -758,7 +758,7 @@ window.sendChatMessage = sendChatMessage;
 window.sendQuickMessage = sendQuickMessage;
 
 window.searchPools = searchPools;
-window.joinPool = joinPool;
+window.joinPool = joinPool; 
 window.viewPool = viewPool;
 window.filterPools = filterPools;
 
